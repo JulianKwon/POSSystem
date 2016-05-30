@@ -12,7 +12,8 @@ import java.text.SimpleDateFormat;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class JDBC_Practice1 implements ActionListener {
+public class JDBC_Practice1 implements ActionListener
+{
 	private static Connection dbTest;
 	private String username;
 	private String password;
@@ -30,14 +31,18 @@ public class JDBC_Practice1 implements ActionListener {
 	private JTextField model_field = new JTextField();
 	private JButton buyButton = new JButton("구매");
 
-	public JDBC_Practice1() {
+	public JDBC_Practice1()
+	{
 		panel.setLayout(null);
 
 		idLabel.setBounds(20, 10, 60, 30);
+		idLabel.setFont(new Font("나눔 고딕", Font.BOLD, 12));
 		pwdLabel.setBounds(20, 50, 60, 30);
+		pwdLabel.setFont(new Font("나눔 고딕", Font.BOLD, 12));
 		idInput.setBounds(100, 10, 80, 30);
 		pwdInput.setBounds(100, 50, 80, 30);
 		loginButton.setBounds(200, 25, 80, 35);
+		loginButton.setFont(new Font("나눔 고딕", Font.BOLD, 12));
 		loginButton.addActionListener(this);
 
 		panel.add(idLabel);
@@ -55,13 +60,14 @@ public class JDBC_Practice1 implements ActionListener {
 	}
 
 	// PCstore GUI 및 Event처리
-	private void PCstore() {
+	private void PCstore()
+	{
 		frame.setVisible(false);
 		frame = new JFrame();
 		panel = new JPanel();
 
-        panel.setFont(new Font("필기체", 1, 12));
-        panel.setBorder(new TitledBorder("조회"));
+		panel.setFont(new Font("필기체", 1, 12));
+		panel.setBorder(new TitledBorder("조회"));
 		panel.setBounds(380, 80, 490, 280);
 		panel.setLayout(null);
 
@@ -104,8 +110,10 @@ public class JDBC_Practice1 implements ActionListener {
 		frame.setVisible(true);
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == loginButton) {
+	public void actionPerformed(ActionEvent e)
+	{
+		if (e.getSource() == loginButton)
+		{
 			username = idInput.getText();
 			password = new String(pwdInput.getPassword());
 
@@ -113,31 +121,39 @@ public class JDBC_Practice1 implements ActionListener {
 			PCstore();
 		}
 		// Checkbox로 테이블명 선택 시 테이블 값 출력
-		else if (e.getSource() == check_box) {
-			try {
+		else if (e.getSource() == check_box)
+		{
+			try
+			{
 				showTable();
-			} catch (SQLException se) {
+			} catch (SQLException se)
+			{
 				se.printStackTrace();
 			}
 		}
 		// 구매버튼 클릭 시 구매작업 수행
-		else if (e.getSource() == buyButton) {
-			try {
+		else if (e.getSource() == buyButton)
+		{
+			try
+			{
 				insertTransaction();
-			} catch (SQLException se) {
+			} catch (SQLException se)
+			{
 				se.printStackTrace();
 			}
 		}
 	}
 
-	private void insertTransaction() throws SQLException {
+	private void insertTransaction() throws SQLException
+	{
 		String specification = "";
 		String modelname = model_field.getText();
 		String count = (String) buy_box.getSelectedItem();
 		String Tablename = ((String) check_box.getSelectedItem()).toUpperCase();
 		int price;
 
-		try {
+		try
+		{
 			String sqlStr = "select price from " + Tablename + " where model =" + modelname;
 			PreparedStatement stmt = dbTest.prepareStatement(sqlStr);
 			ResultSet rs = stmt.executeQuery();
@@ -153,16 +169,21 @@ public class JDBC_Practice1 implements ActionListener {
 
 			sqlStr = "insert into transaction values(" + tnum + ", " + modelname + ", " + count + ", "
 					+ (price * Integer.parseInt(count)) + ")";
-			
-			JOptionPane.showMessageDialog(null, (String)"모델 " + modelname + "을/를 " + count + "개 구매하였습니다.", "메세지", 2);
+			stmt = dbTest.prepareStatement(sqlStr);
+			rs = stmt.executeQuery();
+			rs.next();
 
-		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, (String) "모델 " + modelname + "을/를 " + count + "개 구매하였습니다.", "메세지", 2);
+
+		} catch (SQLException e)
+		{
 			JOptionPane.showMessageDialog(null, (String) "구매를 할 수 없습니다", "메시지", 2);
 		}
 
 	}
 
-	private void showTable() throws SQLException {
+	private void showTable() throws SQLException
+	{
 		String specification = "";
 
 		String sqlStr = "select count(column_name) num from cols where table_name = '"
@@ -180,11 +201,13 @@ public class JDBC_Practice1 implements ActionListener {
 		stmt = dbTest.prepareStatement(sqlStr);
 		rs = stmt.executeQuery();
 
-		for (number = 0; rs.next(); number++) {
+		for (number = 0; rs.next(); number++)
+		{
 			tables[number] = rs.getString("column_name");
 			specification += tables[number] + '\t';
 		}
-		for (specification += "\n"; number > 0; number--) {
+		for (specification += "\n"; number > 0; number--)
+		{
 			specification += "--------------------";
 		}
 		specification += "\n";
@@ -193,8 +216,10 @@ public class JDBC_Practice1 implements ActionListener {
 		stmt = dbTest.prepareStatement(sqlStr);
 		rs = stmt.executeQuery();
 
-		for (number = 0; rs.next(); number++) {
-			for (int i = 0; i < tables.length; i++) {
+		for (number = 0; rs.next(); number++)
+		{
+			for (int i = 0; i < tables.length; i++)
+			{
 				specification += rs.getString(tables[i]) + '\t';
 			}
 			specification += "\n";
@@ -204,20 +229,25 @@ public class JDBC_Practice1 implements ActionListener {
 		stmt.close();
 	}
 
-	private void connectDB() {
-		try {
+	private void connectDB()
+	{
+		try
+		{
 			Class.forName("oracle.jdbc.OracleDriver");
 			dbTest = DriverManager.getConnection("jdbc:oracle:thin:" + "@localhost:1521:XE", username, password);
-            System.out.println("데이터베이스접속 성공 - id: "+username);
-		} catch (SQLException e) {
+			System.out.println("데이터베이스접속 성공 - id: " + username);
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 			System.out.println("패패");
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			System.out.println("Exception:" + e);
 		}
 	}
 
-	public static void main(String[] argv) {
+	public static void main(String[] argv)
+	{
 		new JDBC_Practice1();
 	}
 }
