@@ -13,23 +13,23 @@ public class Mainpage extends JFrame
 	JPanel grid = new JPanel();
 	JTextField title = new JTextField("식당 주문관리");
 	
-	public void mainpage()
+	public Mainpage()
 	{
-		super.setTitle("식당 관리 시스템");
-		grid.setLayout(new GridLayout(3, 1));
+		super("식당 관리 시스템");
 		int x = 20;
 		int y = 10;
-		int width = 300;
-		int height = 900;
+		int width = 800;
+		int height = 1200;
+		grid.setLayout(new GridLayout(3, 1));
 		grid.setBounds(x, y, width, height);
 		
 		title.setFont(new Font("나눔 고딕", Font.BOLD, 30));
+		grid.add(title);
 		
-		super.add(grid);
-		
-		super.pack();
-		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		super.setVisible(true);
+		this.add(grid);
+		this.setSize(width, height);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
 	}
 	
 	public static void main(String[] argv)
