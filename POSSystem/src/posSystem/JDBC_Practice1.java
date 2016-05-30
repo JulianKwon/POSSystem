@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Main implements ActionListener {
+public class JDBC_Practice1 implements ActionListener {
 	private static Connection dbTest;
 	private String username;
 	private String password;
@@ -216,6 +216,6 @@ public class Main implements ActionListener {
 	}
 
 	public static void main(String[] argv) {
-		new Main();
+		new JDBC_Practice1();
 	}
 }
