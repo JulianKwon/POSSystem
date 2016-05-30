@@ -153,6 +153,8 @@ public class JDBC_Practice1 implements ActionListener {
 
 			sqlStr = "insert into transaction values(" + tnum + ", " + modelname + ", " + count + ", "
 					+ (price * Integer.parseInt(count)) + ")";
+			
+			JOptionPane.showMessageDialog(null, (String)"모델 " + modelname + "을/를 " + count + "개 구매하였습니다.", "메세지", 2);
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, (String) "구매를 할 수 없습니다", "메시지", 2);
