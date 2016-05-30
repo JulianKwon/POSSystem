@@ -30,7 +30,7 @@ public class JDBC_Practice1 implements ActionListener {
 	private JTextField model_field = new JTextField();
 	private JButton buyButton = new JButton("±¸¸Å");
 
-	public void JDBC_Practice1() {
+	public JDBC_Practice1() {
 		panel.setLayout(null);
 
 		idLabel.setBounds(20, 10, 60, 30);
