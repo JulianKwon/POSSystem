@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -13,7 +15,8 @@ import javax.swing.border.TitledBorder;
 public class Mainpage extends JFrame
 {
 	static JMenuBar menubar = new JMenuBar();
-	static JMenu menu, open, login;
+	static JMenuItem open, loginmenu;
+	static JMenu menu;
 	static int gap = 10;
 	static int titleh = 90;
 	static int width = 800;
@@ -67,17 +70,25 @@ public class Mainpage extends JFrame
 	
 	public static JMenuBar mkmenu()
 	{
-		
 		menu = new JMenu("menu");
 		menu.setFont(new Font("Helvetica", Font.PLAIN, 15));
 		
-		open = new JMenu("open");
+		open = new JMenuItem("open");
 		open.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		open.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// TODO Auto-generated method stub
+				
+			}
+		});
         menu.add(open);
 
-        login = new JMenu("login");
-        login.setFont(new Font("Helvetica", Font.PLAIN, 15));
-        menu.add(login);
+        loginmenu = new JMenuItem("login");
+        loginmenu.setFont(new Font("Helvetica", Font.PLAIN, 15));
+//        loginmenu.addActionListener(ag);
+        menu.add(loginmenu);
         
         menubar.add(menu);
         
@@ -233,11 +244,6 @@ public class Mainpage extends JFrame
 		pan.add("¸Þ´º", menu);
 		
 		return pan;
-	}
-	
-	public static JPanel client()
-	{
-		
 	}
 	
 	

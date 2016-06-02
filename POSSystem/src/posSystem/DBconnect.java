@@ -25,7 +25,7 @@ public class DBconnect
 	private JTextField idInput = new JTextField();
 	private JPasswordField pwdInput = new JPasswordField();
 	private JButton loginButton = new JButton("·Î±×ÀÎ");
-	
+
 	private void connectDB()
 	{
 		try
@@ -42,7 +42,7 @@ public class DBconnect
 			System.out.println("Exception:" + e);
 		}
 	}
-	
+
 	public void login()
 	{
 		panel.setLayout(null);
@@ -57,7 +57,7 @@ public class DBconnect
 		loginButton.setFont(new Font("³ª´® °íµñ", Font.BOLD, 12));
 		loginButton.addActionListener((ActionListener) this);
 	}
-	
+
 	public void actionPerformed(ActionEvent e)
 	{
 		if (e.getSource() == loginButton)
