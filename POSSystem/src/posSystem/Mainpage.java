@@ -12,7 +12,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-public class Mainpage extends JFrame
+public class Mainpage extends JFrame implements ActionListener
 {
 	static JMenuBar menubar = new JMenuBar();
 	static JMenuItem open, loginmenu;
@@ -55,39 +55,34 @@ public class Mainpage extends JFrame
 		p.add(title);
 		
 		main.add(p);
-		main.add(Mainpage.table());
-		main.add(Mainpage.order());
-		main.add(Mainpage.menu());
-		main.add(Mainpage.join());
+		main.add(table());
+		main.add(order());
+		main.add(menu());
+		main.add(join());
 				
 		this.add(main);
 		
 		this.setSize(width, height);
-		this.setJMenuBar(Mainpage.mkmenu());
+		this.setJMenuBar(mkmenu());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
 	
-	public static JMenuBar mkmenu()
+	public JMenuBar mkmenu()
 	{
 		menu = new JMenu("menu");
 		menu.setFont(new Font("Helvetica", Font.PLAIN, 15));
 		
 		open = new JMenuItem("open");
 		open.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		open.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				// TODO Auto-generated method stub
-				
-			}
-		});
-        menu.add(open);
+		ActionEvent e;
+		open.addActionListener(this);
 
         loginmenu = new JMenuItem("login");
         loginmenu.setFont(new Font("Helvetica", Font.PLAIN, 15));
-//        loginmenu.addActionListener(ag);
+        loginmenu.addActionListener(this);
+
+        menu.add(open);
         menu.add(loginmenu);
         
         menubar.add(menu);
@@ -96,7 +91,7 @@ public class Mainpage extends JFrame
 	}
 	
 	// 테이블 관리 패널
-	public static JPanel table()
+	public JPanel table()
 	{
 		int size = 60;
 		TitledBorder tab = new TitledBorder(new LineBorder(Color.BLACK), "테이블 현황");
@@ -129,7 +124,7 @@ public class Mainpage extends JFrame
 	}
 	
 	// 주문내역 관리 패널
-	public static JPanel order()
+	public JPanel order()
 	{
 		int h = 300 - gap * 3;
 		int w = compw - 150; 
@@ -183,7 +178,7 @@ public class Mainpage extends JFrame
 	}
 	
 	//메뉴 추가
-	public static JPanel menu()
+	public JPanel menu()
 	{
 		int width = (compw - gap*2)/2 - 3;
 		
@@ -219,7 +214,7 @@ public class Mainpage extends JFrame
 		return pan;
 	}
 	
-	public static JTabbedPane join()
+	public JTabbedPane join()
 	{
 		TitledBorder tab = new TitledBorder(new LineBorder(Color.BLACK), "등록/조회");
 		tab.setTitleFont(new Font("맑은 고딕", Font.PLAIN, 15));
@@ -244,6 +239,27 @@ public class Mainpage extends JFrame
 		pan.add("메뉴", menu);
 		
 		return pan;
+	}
+	
+	public JPanel client()
+	{
+		JPanel pan = new JPanel();
+		return pan;
+	}
+	
+	
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		// TODO Auto-generated method stub
+		if(e.getSource() == loginmenu)
+		{
+			DBconnect db = new DBconnect();
+			db.login();
+		} else if (e.getSource() == open)
+		{
+			new Openfile();
+		}
 	}
 	
 	

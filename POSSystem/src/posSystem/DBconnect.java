@@ -8,16 +8,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class DBconnect
+public class DBconnect implements ActionListener
 {
 	private static Connection dbTest;
 	private String username;
 	private String password;
+	private JFrame loginframe = new JFrame();
 	private JPanel panel = new JPanel();
 
 	private JLabel idLabel = new JLabel("¾ÆÀÌµð");
@@ -55,7 +57,20 @@ public class DBconnect
 		pwdInput.setBounds(100, 50, 80, 30);
 		loginButton.setBounds(200, 25, 80, 35);
 		loginButton.setFont(new Font("³ª´® °íµñ", Font.BOLD, 12));
-		loginButton.addActionListener((ActionListener) this);
+		loginButton.addActionListener(this);
+		
+		panel.add(idLabel);
+		panel.add(pwdLabel);
+		panel.add(idInput);
+		panel.add(pwdInput);
+		panel.add(loginButton);
+		
+		loginframe.add(panel);
+
+		loginframe.setTitle("JDBC Practice 1");
+		loginframe.setSize(320, 130);
+		loginframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loginframe.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e)
