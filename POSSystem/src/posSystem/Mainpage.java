@@ -7,7 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -51,18 +50,12 @@ public class Mainpage extends JFrame
 
 		
 		p.add(title);
-
-		JPanel table = Mainpage.table();
-		JPanel order = Mainpage.order();
-		JPanel menu = Mainpage.menu();
-		JPanel join = Mainpage.join();
-		
 		
 		main.add(p);
-		main.add(table);
-		main.add(order);
-		main.add(menu);
-		main.add(join);
+		main.add(Mainpage.table());
+		main.add(Mainpage.order());
+		main.add(Mainpage.menu());
+		main.add(Mainpage.join());
 				
 		this.add(main);
 		
@@ -215,27 +208,36 @@ public class Mainpage extends JFrame
 		return pan;
 	}
 	
-	public static JPanel join()
+	public static JTabbedPane join()
 	{
 		TitledBorder tab = new TitledBorder(new LineBorder(Color.BLACK), "µî·Ï/Á¶È¸");
 		tab.setTitleFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-		JPanel pan = new JPanel();
-		pan.setLayout(null);
+		JTabbedPane pan = new JTabbedPane();
 		pan.setBorder(tab);
 		pan.setBounds(tablel , height1 + 300 + gap*2, compw, 490);
 		pan.setBackground(col);
 		
-		JTabbedPane tabs = new JTabbedPane();
-		JButton b1 = new JButton("New York");
-		  
 		JPanel client = new JPanel();
-		client.add(b1);
+		client.setBackground(col);
+		JPanel sales = new JPanel();
+		sales.setBackground(col);
+		JPanel operators = new JPanel();
+		operators.setBackground(col);
+		JPanel menu = new JPanel();
+		menu.setBackground(col);
 		
-		tabs.addTab("°í°´", client);
 		
-		pan.add(tabs);
+		pan.add("°í°´", client);
+		pan.add("¸ÅÃâ", sales);
+		pan.add("Á÷¿ø", operators);
+		pan.add("¸Þ´º", menu);
 		
 		return pan;
+	}
+	
+	public static JPanel client()
+	{
+		
 	}
 	
 	
