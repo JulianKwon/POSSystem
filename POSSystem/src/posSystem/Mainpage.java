@@ -113,7 +113,7 @@ public class Mainpage extends JFrame
             panel[i].setHorizontalAlignment(NORMAL);
             
             if(true)
-            	panel[i].setBackground(Color.YELLOW);
+            	panel[i].setBackground(Color.WHITE);
         }
 		
 		for(int i = 0 ; i < 20; i++)
@@ -220,12 +220,20 @@ public class Mainpage extends JFrame
 		TitledBorder tab = new TitledBorder(new LineBorder(Color.BLACK), "µî·Ï/Á¶È¸");
 		tab.setTitleFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 		JPanel pan = new JPanel();
-		
 		pan.setLayout(null);
 		pan.setBorder(tab);
 		pan.setBounds(tablel , height1 + 300 + gap*2, compw, 490);
 		pan.setBackground(col);
-
+		
+		JTabbedPane tabs = new JTabbedPane();
+		JButton b1 = new JButton("New York");
+		  
+		JPanel client = new JPanel();
+		client.add(b1);
+		
+		tabs.addTab("°í°´", client);
+		
+		pan.add(tabs);
 		
 		return pan;
 	}
