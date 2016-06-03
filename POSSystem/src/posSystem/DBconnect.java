@@ -45,7 +45,7 @@ public class DBconnect implements ActionListener
 		}
 	}
 
-	public void login()
+	public DBconnect()
 	{
 		panel.setLayout(null);
 
@@ -67,7 +67,7 @@ public class DBconnect implements ActionListener
 		
 		loginframe.add(panel);
 
-		loginframe.setTitle("JDBC Practice 1");
+		loginframe.setTitle("사원 로그인");
 		loginframe.setSize(320, 130);
 		loginframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loginframe.setVisible(true);
@@ -81,6 +81,7 @@ public class DBconnect implements ActionListener
 			password = new String(pwdInput.getPassword());
 
 			connectDB();
+			loginframe.dispose();
 		}
 	}
 }

@@ -11,24 +11,30 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Mainpage extends JFrame implements ActionListener
 {
 	static JMenuBar menubar = new JMenuBar();
 	static JMenuItem open, loginmenu;
 	static JMenu menu;
+	static JButton pay, cancel, order;
+	static JComboBox<String> tablenum;
+	static JTextField clientname;
+	
 	static int gap = 10;
 	static int titleh = 90;
 	static int width = 800;
 	static int height = 1000;
-	static int compw = width / 2 - gap*2;
-	static int tablel = width / 2 - gap;
-	static int height1 = gap*2 + titleh;
+	static int compw = 380;
+	static int tablel = 390;
+	static int height1 = 110;
+	static int titlewidth = 760;
 	static Color col = new Color(194, 194, 214);
 	
+	// mainpage 구성
 	public Mainpage()
 	{
-		int w = 760;
 		setTitle("식당 관리 시스템");
 		
 		setLayout(null);
@@ -41,7 +47,7 @@ public class Mainpage extends JFrame implements ActionListener
 		
 		JPanel p = new JPanel();
 		
-		p.setBounds(gap, gap, w, titleh);
+		p.setBounds(gap, gap, titlewidth, titleh);
 		p.setBorder(border);
 		p.setLayout(new BorderLayout());
 		
@@ -75,7 +81,6 @@ public class Mainpage extends JFrame implements ActionListener
 		
 		open = new JMenuItem("open");
 		open.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		ActionEvent e;
 		open.addActionListener(this);
 
         loginmenu = new JMenuItem("login");
@@ -126,7 +131,7 @@ public class Mainpage extends JFrame implements ActionListener
 	// 주문내역 관리 패널
 	public JPanel order()
 	{
-		int h = 300 - gap * 3;
+		int h = 300 - gap * 4;
 		int w = compw - 150; 
 		TitledBorder tab = new TitledBorder(new LineBorder(Color.BLACK), "주문내역");
 		tab.setTitleFont(new Font("맑은 고딕", Font.PLAIN, 15));
@@ -137,43 +142,43 @@ public class Mainpage extends JFrame implements ActionListener
 		pan.setBackground(col);
 		
 		JTextArea tf = new JTextArea(15, 1);
-		tf.setBounds(gap + 5, gap*2, w, h);
+		tf.setBounds(15, 25, w, h);
 		
 		JLabel name = new JLabel("고객명");
 		name.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		name.setBounds(w + gap*3, gap * 2, 50, 25);
 		
-		JTextField namefield = new JTextField();
-		namefield.setBounds(w + gap*3, gap * 3 + 15, 100, 25);
-		namefield.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		clientname = new JTextField();
+		clientname.setBounds(w + gap*3, gap * 3 + 15, 100, 25);
+		clientname.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		
 		JLabel tname = new JLabel("테이블명");
 		tname.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		tname.setBounds(w + gap*3, gap * 3 + 60, 70, 25);
 		
-		JComboBox<String> tablenum = new JComboBox<String>();
+		tablenum = new JComboBox<String>();
 		for (int i = 1; i <= 20; i++)
 			tablenum.addItem(String.valueOf(i));
 		tablenum.setBounds(w + gap*3 + 20, gap * 3 + 90, 60, 25);
 		
-		JButton btn1 = new JButton("주문");
-		btn1.setBounds(w + gap*3 + 30, gap * 3 + 140, 70, 25);
+		order = new JButton("주문");
+		order.setBounds(w + gap*3 + 30, gap * 3 + 140, 70, 25);
 		
-		JButton btn2 = new JButton("취소");
-		btn2.setBounds(w + gap*3 + 30, gap * 3 + 180, 70, 25);
+		cancel = new JButton("취소");
+		cancel.setBounds(w + gap*3 + 30, gap * 3 + 180, 70, 25);
 		
-		JButton btn3 = new JButton("결제");
-		btn3.setBounds(w + gap*3 + 30, gap * 3 + 220, 70, 25);
+		pay = new JButton("결제");
+		pay.setBounds(w + gap*3 + 30, gap * 3 + 220, 70, 25);
 		
 		
 		pan.add(tf);
 		pan.add(name);
-		pan.add(namefield);
+		pan.add(clientname);
 		pan.add(tname);
 		pan.add(tablenum);
-		pan.add(btn1);
-		pan.add(btn2);
-		pan.add(btn3);
+		pan.add(order);
+		pan.add(cancel);
+		pan.add(pay);
 		return pan;
 	}
 	
@@ -187,7 +192,7 @@ public class Mainpage extends JFrame implements ActionListener
 		JPanel pan = new JPanel();
 		pan.setLayout(new FlowLayout(FlowLayout.CENTER, 7, 10));
 		pan.setBorder(tab);
-		pan.setBounds(gap , height1 + 300 + gap*2, compw, 490);
+		pan.setBounds(gap, height1 + 300 + gap*2, compw, 490);
 		pan.setBackground(col);
 
 		// menu input
@@ -216,6 +221,7 @@ public class Mainpage extends JFrame implements ActionListener
 	
 	public JTabbedPane join()
 	{
+		Supervisor s = new Supervisor();
 		TitledBorder tab = new TitledBorder(new LineBorder(Color.BLACK), "등록/조회");
 		tab.setTitleFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		JTabbedPane pan = new JTabbedPane();
@@ -223,42 +229,46 @@ public class Mainpage extends JFrame implements ActionListener
 		pan.setBounds(tablel , height1 + 300 + gap*2, compw, 490);
 		pan.setBackground(col);
 		
-		JPanel client = new JPanel();
-		client.setBackground(col);
-		JPanel sales = new JPanel();
-		sales.setBackground(col);
-		JPanel operators = new JPanel();
-		operators.setBackground(col);
-		JPanel menu = new JPanel();
-		menu.setBackground(col);
+		JPanel client = s.client();
+		JPanel sales = s.sales();
+		JPanel clerks = s.clerks();
+		JPanel menu = s.menu();
 		
 		
 		pan.add("고객", client);
 		pan.add("매출", sales);
-		pan.add("직원", operators);
+		pan.add("직원", clerks);
 		pan.add("메뉴", menu);
 		
 		return pan;
 	}
-	
-	public JPanel client()
-	{
-		JPanel pan = new JPanel();
-		return pan;
-	}
-	
-	
 	
 	public void actionPerformed(ActionEvent e)
 	{
 		// TODO Auto-generated method stub
 		if(e.getSource() == loginmenu)
 		{
-			DBconnect db = new DBconnect();
-			db.login();
+			new DBconnect();
 		} else if (e.getSource() == open)
 		{
-			new Openfile();
+			JFileChooser file = new JFileChooser();
+			file.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+			file.setFileFilter
+		    (new FileNameExtensionFilter("텍스트", "txt"));
+			file.showOpenDialog(this);
+			new Openfile(file.getSelectedFile());
+		} else if (e.getSource() == order)
+		{
+			int input = Integer.parseInt(tablenum.getSelectedItem().toString());
+			new OrderTable(input);
+		} else if (e.getSource() == cancel)
+		{
+			int input = Integer.parseInt(tablenum.getSelectedItem().toString());
+			
+		} else if (e.getSource() == pay)
+		{
+			String cname = clientname.getText();
+			
 		}
 	}
 	

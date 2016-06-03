@@ -3,27 +3,27 @@ package posSystem;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.StringTokenizer;
 
 public class Openfile
 {
-	private JFileChooser file = new JFileChooser();
-	private FileNameExtensionFilter filter = new FileNameExtensionFilter("*.txt");
 	private File input;
+	private static Connection dbTest;
 
-	public Openfile()
+	public Openfile(File in)
 	{
-		file.setFileFilter(filter);
-		input = file.getSelectedFile();
-
+		input = in;
+		System.out.println("저장경로 : " + input.toString());
 		read();
-
 	}
 
 	void read()
 	{
+		IDCreater idc = new IDCreater();
+		int num = 0;
 		try
 		{
 			FileReader fileReader = new FileReader(input);
@@ -33,9 +33,36 @@ public class Openfile
 			{
 				if (isStringDouble(line))
 				{
-					for (int i = 0 ; i < Integer.parseInt(line); i++)
+					if(num == 0)
 					{
-						int size = line.length();
+						String clientname = null, rate = null;
+						int birthday = 0, phonenumber = 0, ID = 0;
+						
+						for (int i = 0 ; i < Integer.parseInt(line); i++)
+						{
+							int count = 3;
+							line = reader.readLine();
+							StringTokenizer st = new StringTokenizer(line, "\t");
+							while(st.hasMoreTokens())
+							{
+								if(count == 3)
+									clientname = st.nextToken();
+								else if (count == 2)
+									birthday = Integer.parseInt(st.nextToken());
+								else if (count == 1)
+									phonenumber = Integer.parseInt(st.nextToken());
+								else
+									rate = st.nextToken();
+								count--;
+							}
+							ID = idc.IDCreate();
+							
+							String sqlStr = "insert into client values(" + ID + ", " + clientname + ", " + birthday + ", " + phonenumber + ", "
+									+ rate + ")";
+							PreparedStatement stmt = dbTest.prepareStatement(sqlStr);
+							ResultSet rs = stmt.executeQuery();
+							rs.next();
+						}
 						
 					}
 				}
