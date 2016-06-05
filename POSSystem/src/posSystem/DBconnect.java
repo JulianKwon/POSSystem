@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 public class DBconnect implements ActionListener
 {
 	public static Connection dbTest;
-	private String username;
-	private String password;
+	public static String username;
+	public static String password;
 	private JFrame loginframe = new JFrame();
 	private JPanel panel = new JPanel();
 

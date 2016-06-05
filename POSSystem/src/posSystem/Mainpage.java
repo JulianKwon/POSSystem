@@ -158,6 +158,7 @@ public class Mainpage extends JFrame implements ActionListener
 		
 		orderarea = new JTextArea(15, 1);
 		orderarea.setBounds(15, 25, w, h);
+		orderarea.setEditable(false);
 		
 		JLabel name = new JLabel("°í°´¸í");
 		name.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
@@ -267,7 +268,14 @@ public class Mainpage extends JFrame implements ActionListener
 		if (e.getSource() == order)
 		{
 			int input = Integer.parseInt(tablenum.getSelectedItem().toString());
-			new OrderTable(input);
+			try
+			{
+				new OrderTable(input);
+			} catch (SQLException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} 
 		if (e.getSource() == cancel)
 		{
@@ -300,18 +308,14 @@ public class Mainpage extends JFrame implements ActionListener
 				sql = "select name from menu where rownum=" + i + 1;
 				stmt = DBconnect.dbTest.prepareStatement(sql);
 				rs = stmt.executeQuery();
-				rs.next();
 				menus[i].setText(rs.getString("name"));
+				rs.close();
+				stmt.close();
 			}
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public static void main(String[] argv)
-	{
-		new Mainpage();
 	}
 }
