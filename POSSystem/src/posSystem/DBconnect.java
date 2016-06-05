@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 public class DBconnect implements ActionListener
 {
-	private static Connection dbTest;
+	public static Connection dbTest;
 	private String username;
 	private String password;
 	private JFrame loginframe = new JFrame();
@@ -66,10 +66,11 @@ public class DBconnect implements ActionListener
 		panel.add(loginButton);
 		
 		loginframe.add(panel);
-
+		
 		loginframe.setTitle("사원 로그인");
 		loginframe.setSize(320, 130);
-		loginframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loginframe.setResizable(false);
+		loginframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		loginframe.setVisible(true);
 	}
 
@@ -82,6 +83,7 @@ public class DBconnect implements ActionListener
 
 			connectDB();
 			loginframe.dispose();
+			Mainpage.setmenu();
 		}
 	}
 }

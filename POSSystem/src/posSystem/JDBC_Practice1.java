@@ -164,6 +164,7 @@ public class JDBC_Practice1 implements ActionListener
 			stmt = dbTest.prepareStatement(sqlStr);
 			rs = stmt.executeQuery();
 			rs.next();
+			
 			int tnum = rs.getInt("count(tnumber)");
 			tnum++;
 
