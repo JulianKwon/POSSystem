@@ -176,16 +176,19 @@ public class Mainpage extends JFrame implements ActionListener
 		for (int i = 1; i <= 20; i++)
 			tablenum.addItem(String.valueOf(i));
 		tablenum.setBounds(w + gap*3 + 20, gap * 3 + 90, 60, 25);
+		tablenum.addActionListener(this);
 		
 		order = new JButton("주문");
 		order.setBounds(w + gap*3 + 30, gap * 3 + 140, 70, 25);
+		order.addActionListener(this);
 		
 		cancel = new JButton("취소");
 		cancel.setBounds(w + gap*3 + 30, gap * 3 + 180, 70, 25);
+		cancel.addActionListener(this);
 		
 		pay = new JButton("결제");
 		pay.setBounds(w + gap*3 + 30, gap * 3 + 220, 70, 25);
-		
+		pay.addActionListener(this);
 		
 		pan.add(orderarea);
 		pan.add(name);
@@ -215,6 +218,7 @@ public class Mainpage extends JFrame implements ActionListener
 			menus[i] = new JButton();
             menus[i].setPreferredSize(new Dimension(width, 30));
             menus[i].setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+            menus[i].addActionListener(this);
         }
 		
 		for(int i = 0 ; i < 20; i++)
@@ -253,7 +257,8 @@ public class Mainpage extends JFrame implements ActionListener
 		if(e.getSource() == loginmenu)
 		{
 			new DBconnect();
-		} else if (e.getSource() == open)
+		}
+		if (e.getSource() == open)
 		{
 			try
 			{
@@ -267,10 +272,9 @@ public class Mainpage extends JFrame implements ActionListener
 		
 		if (e.getSource() == order)
 		{
-			int input = Integer.parseInt(tablenum.getSelectedItem().toString());
 			try
 			{
-				new OrderTable(input);
+				new OrderTable();
 			} catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
@@ -284,14 +288,757 @@ public class Mainpage extends JFrame implements ActionListener
 		} 
 		if (e.getSource() == pay)
 		{
-			String cname = clientname.getText();
 		}
-		if (e.getSource() == tablebtn[0])
+		if (e.getSource() == tablenum)
 		{
-			
+			String sql = "select menuname, price from tableorder where tablenum = " + tablenum.getSelectedItem();
+			String line = null;
+			try{
+				stmt = DBconnect.dbTest.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				int total = 0;
+				while(rs.next())
+				{
+					line += rs.getString("menuname") + "\t" + rs.getInt("price") + "\n";
+					total += rs.getInt("price");
+				}
+				
+				orderarea.setText(line);
+				orderarea.setText("\n" + "-------------------------" + "\n" + "총 합계\t" + total);
+				
+				rs.close();
+				stmt.close();
+				
+			}catch (SQLException e1)
+			{
+				e1.printStackTrace();
+			}
 		}
+		if(e.getSource() == menus[0])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[0])
+			{
+				if (!menus[0].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[0].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[1])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[1])
+			{
+				if (!menus[1].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[1].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[2])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[2])
+			{
+				if (!menus[2].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[2].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[3])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[3])
+			{
+				if (!menus[3].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[3].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[4])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[4])
+			{
+				if (!menus[4].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[4].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[5])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[5])
+			{
+				if (!menus[5].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[5].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[6])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[6])
+			{
+				if (!menus[6].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[6].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[7])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[7])
+			{
+				if (!menus[7].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[7].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[8])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[8])
+			{
+				if (!menus[8].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[8].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[9])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[9])
+			{
+				if (!menus[9].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[9].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[10])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[10])
+			{
+				if (!menus[10].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[10].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[11])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[11])
+			{
+				if (!menus[11].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[11].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[12])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[12])
+			{
+				if (!menus[12].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[12].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[13])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[13])
+			{
+				if (!menus[13].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[13].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[14])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[14])
+			{
+				if (!menus[14].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[14].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[15])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[15])
+			{
+				if (!menus[15].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[15].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[16])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[16])
+			{
+				if (!menus[16].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[16].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[17])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[17])
+			{
+				if (!menus[17].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[17].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[18])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[18])
+			{
+				if (!menus[18].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[18].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource() == menus[19])
+		{
+			// TODO Auto-generated method stub
+			if(e.getSource() == menus[19])
+			{
+				if (!menus[19].getText().equals(""))
+				{
+					String text = orderarea.getText();
+					
+					String sql;
+					PreparedStatement stmt;
+					ResultSet rs;
+					
+					sql = "select name, price from menu where name = '" + (String) menus[19].getText() + "'";
+					
+					try
+					{	
+						stmt = DBconnect.dbTest.prepareStatement(sql);
+						rs = stmt.executeQuery();
+						rs.next();
+						
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						
+						orderarea.setText(name + "\t" + price + "\n" + text);
+						
+						rs.close();
+						stmt.close();
+						
+					} catch(SQLException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		
+		
 	}
 	
+	// DB에서 menu명을 가져와 menus 버튼에 set(login 시 일어남)
 	public static void setmenu()
 	{
 		try
@@ -300,18 +1047,25 @@ public class Mainpage extends JFrame implements ActionListener
 			stmt = DBconnect.dbTest.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			rs.next();
-			menuleng = rs.getInt("count(name)");
-			System.out.println(menuleng);
+			int num = rs.getInt("count(name)");
+		
+			sql = "select name from menu";
+			stmt = DBconnect.dbTest.prepareStatement(sql);
+			rs = stmt.executeQuery();
 			
-			for(int i = 0 ; i < menuleng; i++)
+			if (rs.next())
 			{
-				sql = "select name from menu where rownum=" + i + 1;
-				stmt = DBconnect.dbTest.prepareStatement(sql);
-				rs = stmt.executeQuery();
-				menus[i].setText(rs.getString("name"));
-				rs.close();
-				stmt.close();
+				for (int i = 0 ; i < rs.getRow(); i++)
+				{
+					if(num <= 10)
+						menus[2*i].setText(rs.getString("name"));
+					else
+						menus[2*i+1].setText(rs.getString("name"));
+					if(!rs.next())
+						break;
+				}
 			}
+			
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block

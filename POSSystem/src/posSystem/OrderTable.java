@@ -14,11 +14,21 @@ public class OrderTable
 	PreparedStatement stmt;
 	ResultSet rs;
 	
-	
-	public OrderTable(int tablenum) throws SQLException
+	//주문버튼처리
+	public OrderTable() throws SQLException
 	{
+		int tablenum = Integer.parseInt(Mainpage.tablenum.getSelectedItem().toString());
+		
+		System.out.println(tablenum);
+		
 		String loginid = DBconnect.username;
-		String sql = "select position from employee where name = '" + loginid + "'";
+		
+		if(loginid.equals("system"))
+		{
+			
+		}
+		
+		String sql = "select position from clerk where id = '" + loginid + "'";
 		stmt = DBconnect.dbTest.prepareStatement(sql);
 		rs = stmt.executeQuery();
 		String roll = "";
